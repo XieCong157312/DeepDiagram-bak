@@ -199,6 +199,11 @@ def sanitize_drawio_xml(xml_content: str) -> str:
     """Remove invalid <Array> elements from Draw.io XML that cause parsing errors."""
     if not xml_content or '<mxfile' not in xml_content:
         return xml_content
+    
+
+    xml_content = re.sub(r'<\/code>\s*$', '', xml_content, flags=re.IGNORECASE)
+    xml_content = re.sub(r'<\/code', '', xml_content, flags=re.IGNORECASE)
+    xml_content = re.sub(r'^<code>\s*', '', xml_content, flags=re.IGNORECASE)
 
     # Remove <Array .../> elements (self-closing) - handles multiline
     xml_content = re.sub(r'<Array[^/>]*?/>', '', xml_content, flags=re.DOTALL)

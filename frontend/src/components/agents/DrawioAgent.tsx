@@ -112,6 +112,11 @@ export const DrawioAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) =
         if (!isStreamingCode && iframeReady && currentCode && drawioIframeRef.current) {
             let cleanXml = currentCode.replace(/```xml\s?/, '').replace(/```/, '').trim();
 
+            // 移除所有 <code> 和 </code> 标签，包括不完整的 </code 和可能的属性
+            cleanXml = cleanXml.replace(/<\/?code[^>]*>/gi, ''); // 移除完整的开始和结束标签
+            cleanXml = cleanXml.replace(/<\/code/gi, ''); // 移除不完整的结束标签（如没有 >）
+            cleanXml = cleanXml.trimStart(); // 移除开头的空白，等价于原来的 /^\s*/ 但更清晰
+
             // Handle nested JSON structure: {"design_concept": "...", "code": "..."}
             if (cleanXml.startsWith('{') && cleanXml.includes('"code"')) {
                 try {
