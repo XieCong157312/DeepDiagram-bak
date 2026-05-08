@@ -984,9 +984,9 @@ export const ChatPanel = () => {
                 <div>
                     <div className="flex items-center gap-2">
                         <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                            DeepDiagram AI
+                            图表生成器
                         </h1>
-                        <a
+                        {/* <a
                             href="https://github.com/twwch/DeepDiagram"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -994,7 +994,7 @@ export const ChatPanel = () => {
                             title="View on GitHub"
                         >
                             <Github className="w-5 h-5 fill-current" />
-                        </a>
+                        </a> */}
                     </div>
                     <p className="text-xs text-slate-500 mt-1">Describe what you want to create or upload an image.</p>
                 </div>
