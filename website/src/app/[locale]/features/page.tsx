@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   return createMetadata({
     title: locale === 'zh' ? '功能特性' : 'Features',
-    description: locale === 'zh' ? '探索 DeepDiagram 六大 AI 智能体的强大功能' : 'Explore the powerful capabilities of DeepDiagram\'s six AI agents',
+    description: locale === 'zh' ? '探索 图表生成器六大 AI 智能体的强大功能' : 'Explore the powerful capabilities of DeepDiagram\'s six AI agents',
     locale,
     path: '/features',
   });

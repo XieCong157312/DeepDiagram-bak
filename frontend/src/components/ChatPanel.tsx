@@ -984,26 +984,25 @@ export const ChatPanel = () => {
                 <div>
                     <div className="flex items-center gap-2">
                         <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                            DeepDiagram AI
+                            图表生成器
                         </h1>
                         <a
-                            href="https://github.com/twwch/DeepDiagram"
+                            href=""
                             target="_blank"
                             rel="noopener noreferrer"
                             className="p-1 rounded-full hover:bg-slate-100 text-slate-950 transition-colors"
-                            title="View on GitHub"
+                            title="查看 GitHub"
                         >
-                            <Github className="w-5 h-5 fill-current" />
                         </a>
                     </div>
-                    <p className="text-xs text-slate-500 mt-1">Describe what you want to create or upload an image.</p>
+                    <p className="text-xs text-slate-500 mt-1">描述你想要创建的图表，或上传图片/文档进行分析。</p>
                 </div>
 
                 <div className="flex items-center gap-2">
                     <button
                         onClick={() => setIsSettingsOpen(true)}
                         className="p-2.5 bg-slate-100 text-slate-500 rounded-full hover:bg-slate-200 transition-all hover:text-blue-600 shadow-sm"
-                        title="Model Settings"
+                        title="模型设置"
                     >
                         <Settings className="w-5 h-5" />
                     </button>
@@ -1016,7 +1015,7 @@ export const ChatPanel = () => {
                         className="flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 text-white rounded-full text-sm font-bold hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20 active:scale-95"
                     >
                         <Plus className="w-4 h-4" />
-                        <span>New Chat</span>
+                        <span>新会话</span>
                     </button>
 
                     {/* History Dropdown */}
@@ -1031,20 +1030,20 @@ export const ChatPanel = () => {
                             )}
                         >
                             <HistoryIcon className="w-3.5 h-3.5" />
-                            <span>History</span>
+                            <span>历史</span>
                             <ChevronDown className={cn("w-3 h-3 transition-transform duration-200", showHistory && "rotate-180")} />
                         </button>
 
                         {showHistory && (
                             <div className="absolute right-0 mt-2 w-80 bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200/50 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                                 <div className="p-3 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Recent Chats</span>
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">最近会话</span>
                                     <HistoryIcon className="w-3 h-3 text-slate-300" />
                                 </div>
                                 <div className="max-h-[400px] overflow-y-auto p-1 custom-scrollbar">
                                     {sessions.length === 0 ? (
                                         <div className="p-8 text-center text-slate-400 text-xs">
-                                            No chat history yet
+                                            暂无聊天记录
                                         </div>
                                     ) : (
                                         sessions.map((session) => (
@@ -1071,7 +1070,7 @@ export const ChatPanel = () => {
                                                         "text-sm font-semibold truncate",
                                                         sessionId === session.id ? "text-blue-700" : "text-slate-700 group-hover:text-blue-700"
                                                     )}>
-                                                        {session.title || "New Chat"}
+                                                        {session.title || "新会话"}
                                                     </div>
                                                     <div className="text-[10px] text-slate-400 mt-0.5">
                                                         {new Date(session.updated_at).toLocaleDateString()} • {new Date(session.updated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -1083,7 +1082,7 @@ export const ChatPanel = () => {
                                                         void deleteSession(session.id);
                                                     }}
                                                     className="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all opacity-0 group-hover:opacity-100"
-                                                    title="Delete chat"
+                                                    title="删除会话"
                                                 >
                                                     <Trash2 className="w-3.5 h-3.5" />
                                                 </button>
@@ -1117,7 +1116,7 @@ export const ChatPanel = () => {
                 {isLoading && messages.length === 0 ? (
                     <div className="flex flex-col items-center justify-center min-h-[600px] text-slate-400">
                         <Loader2 className="w-8 h-8 animate-spin text-blue-500 mb-4" />
-                        <p className="text-sm font-medium">Loading chat history...</p>
+                        <p className="text-sm font-medium">正在加载聊天记录...</p>
                     </div>
                 ) : messages.length === 0 && (
                     <div className="flex flex-col items-center justify-center min-h-[600px] text-slate-400 space-y-12 py-20 relative overflow-hidden">
@@ -1134,11 +1133,10 @@ export const ChatPanel = () => {
                             </div>
                             <div className="text-center space-y-2">
                                 <h2 className="text-3xl font-black tracking-tight text-slate-800 bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text">
-                                    Design Your Vision
+                                    设计你的图表
                                 </h2>
                                 <p className="text-slate-400 font-medium max-w-sm mx-auto leading-relaxed">
-                                    Unlock professional diagrams with AI-powered consulting.
-                                    Select a showcase below to begin.
+                                    使用 AI 生成专业图表。选择下面示例开始创作。
                                 </p>
                             </div>
                         </div>
@@ -1213,7 +1211,7 @@ export const ChatPanel = () => {
                         </div>
 
                         <div className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.2em] animate-pulse">
-                            Powered by DeepDiagram Advanced Orchestration
+                            Powered by 图表生成器Advanced Orchestration
                         </div>
                     </div>
                 )}
@@ -1590,7 +1588,7 @@ export const ChatPanel = () => {
                         {showMentions && (
                             <div className="absolute bottom-full mb-2 w-72 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden z-[60] animate-in fade-in slide-in-from-bottom-2 duration-200">
                                 <div className="p-2 border-b border-slate-50 bg-slate-50/50 flex items-center justify-between">
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Select Agent</span>
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">选择智能体</span>
                                     <Command className="w-3 h-3 text-slate-300" />
                                 </div>
                                 <div className="max-h-64 overflow-y-auto p-1 custom-scrollbar">
@@ -1648,7 +1646,7 @@ export const ChatPanel = () => {
                             onChange={handleInput}
                             onKeyDown={handleKeyDown}
                             onPaste={handlePaste}
-                            placeholder={inputImages.length > 0 ? "Ask about this image..." : "Ask anything... (Type @ to select agent)"}
+                            placeholder={inputImages.length > 0 ? "询问这张图片..." : "请输入内容...（输入 @ 选择智能体）"}
                             className="w-full px-5 pt-5 pb-2 bg-transparent focus:outline-none font-medium text-slate-700 placeholder:text-slate-400 resize-none overflow-y-auto custom-scrollbar"
                             style={{ height: 'auto', minHeight: '60px' }}
                             disabled={isLoading}
@@ -1660,13 +1658,13 @@ export const ChatPanel = () => {
                                     type="button"
                                     onClick={() => fileInputRef.current?.click()}
                                     className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all"
-                                    title="Upload Image or Document"
+                                    title="上传图片或文档"
                                     disabled={isLoading}
                                 >
                                     <Paperclip className="w-5 h-5" />
                                 </button>
 
-                                <div className="flex items-center gap-2 px-2 py-1 bg-slate-100/50 border border-slate-200/50 rounded-lg" title="Parallel processing concurrency">
+                                <div className="flex items-center gap-2 px-2 py-1 bg-slate-100/50 border border-slate-200/50 rounded-lg" title="并行处理并发数">
                                     <Zap className="w-3 h-3 text-amber-500" />
                                     <input
                                         type="range"

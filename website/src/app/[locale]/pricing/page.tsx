@@ -44,7 +44,7 @@ function PricingContent() {
             <div className="mt-6">
               <span className="text-4xl font-bold text-gray-900">{t('free.price')}</span>
             </div>
-            <Button href="https://github.com/twwch/DeepDiagram" external size="lg" className="mt-6 w-full">
+            <Button href="" external size="lg" className="mt-6 w-full">
               <Github className="h-4 w-4" />
               {t('free.name')}
             </Button>

@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from app.api.routes import router as api_router
 from app.core.config import settings
 
-app = FastAPI(title="DeepDiagram API")
+app = FastAPI(title="图表生成器API")
 
 # Set all CORS enabled origins
 if settings.BACKEND_CORS_ORIGINS:
@@ -31,7 +31,7 @@ async def on_startup():
 
 @app.get("/")
 async def root():
-    return {"message": "DeepDiagram API is running"}
+    return {"message": "图表生成器API is running"}
 
 # Global Exception Handler
 from fastapi import Request

@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   return createMetadata({
     title: locale === 'zh' ? '文档' : 'Documentation',
-    description: locale === 'zh' ? 'DeepDiagram 使用文档和部署指南' : 'DeepDiagram documentation and deployment guide',
+    description: locale === 'zh' ? '图表生成器使用文档和部署指南' : '图表生成器documentation and deployment guide',
     locale,
     path: '/docs',
   });
@@ -22,7 +22,7 @@ export default async function DocsPage({ params }: { params: Promise<{ locale: s
     {
       icon: Rocket,
       title: locale === 'zh' ? '快速开始' : 'Getting Started',
-      desc: locale === 'zh' ? '5 分钟内启动 DeepDiagram' : 'Get DeepDiagram running in 5 minutes',
+      desc: locale === 'zh' ? '5 分钟内启动 DeepDiagram' : 'Get 图表生成器running in 5 minutes',
       href: '/docs/getting-started',
     },
     {

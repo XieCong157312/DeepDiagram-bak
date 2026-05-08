@@ -89,14 +89,14 @@ export const CanvasPanel = () => {
                                     "transition-colors duration-200 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed",
                                     showDownloadMenu ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
                                 )}
-                                title="Download"
+                                title="下载"
                             >
                                 <Download className="w-5 h-5" />
                             </button>
                             {showDownloadMenu && (
                                 <div className="absolute right-0 top-full mt-2 bg-white/95 backdrop-blur border border-slate-200 shadow-lg rounded-lg p-1 flex flex-col w-32 z-50" onMouseLeave={() => setShowDownloadMenu(false)}>
-                                    <button onClick={() => handleDownload('png')} className="px-3 py-2 text-xs text-left hover:bg-slate-50 text-slate-700 rounded-md block w-full transition-colors">Save PNG</button>
-                                    <button onClick={() => handleDownload('svg')} className="px-3 py-2 text-xs text-left hover:bg-slate-50 text-slate-700 rounded-md block w-full transition-colors">Save SVG</button>
+                                    <button onClick={() => handleDownload('png')} className="px-3 py-2 text-xs text-left hover:bg-slate-50 text-slate-700 rounded-md block w-full transition-colors">保存 PNG</button>
+                                    <button onClick={() => handleDownload('svg')} className="px-3 py-2 text-xs text-left hover:bg-slate-50 text-slate-700 rounded-md block w-full transition-colors">保存 SVG</button>
                                 </div>
                             )}
                         </div>
@@ -107,7 +107,7 @@ export const CanvasPanel = () => {
                                 onClick={handleResetView}
                                 disabled={isLoading}
                                 className="text-slate-700 hover:text-blue-600 transition-colors duration-200 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-                                title="Reset View"
+                                title="重置视图"
                             >
                                 <RotateCcw className="w-5 h-5" />
                             </button>
@@ -118,7 +118,7 @@ export const CanvasPanel = () => {
                             onClick={handleRegenerate}
                             disabled={isLoading}
                             className="text-slate-700 hover:text-blue-600 transition-colors duration-200 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-                            title="Regenerate Diagram"
+                            title="重新生成图表"
                         >
                             <RefreshCw className={cn("w-5 h-5", isLoading && "animate-spin")} />
                         </button>
@@ -181,7 +181,7 @@ export const CanvasPanel = () => {
 
                         {!activeMessageId && !isLoading && (
                             <div className="w-full h-full flex flex-col items-center justify-center text-slate-400">
-                                <p>No diagram generated yet.</p>
+                                <p>尚未生成图表。</p>
                             </div>
                         )}
                     </div>

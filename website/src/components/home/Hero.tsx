@@ -61,7 +61,7 @@ export function Hero() {
             {t('cta')}
             <ArrowRight className="h-4 w-4" />
           </Button>
-          <Button href="https://github.com/twwch/DeepDiagram" external variant="secondary" size="lg">
+          <Button href="" external variant="secondary" size="lg">
             <Github className="h-4 w-4" />
             {t('secondaryCta')}
           </Button>

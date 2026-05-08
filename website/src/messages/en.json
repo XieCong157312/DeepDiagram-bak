@@ -69,7 +69,7 @@
   },
   "cta": {
     "title": "Ready to let AI create diagrams for you?",
-    "subtitle": "Free, open source, no registration required. Start using DeepDiagram now.",
+    "subtitle": "Free, open source, no registration required. Start using 图表生成器now.",
     "button": "Try it Now"
   },
   "footer": {
@@ -98,7 +98,7 @@
   "about": {
     "title": "About DeepDiagram",
     "subtitle": "We believe AI can make everyone a visualization expert",
-    "mission": "DeepDiagram is an open-source AI visualization platform dedicated to making professional diagram creation simple and efficient through natural language interaction.",
+    "mission": "图表生成器is an open-source AI visualization platform dedicated to making professional diagram creation simple and efficient through natural language interaction.",
     "techTitle": "Technology Stack",
     "techDesc": "Built on LangGraph multi-agent architecture, React + TypeScript frontend, FastAPI + PostgreSQL backend, with one-click Docker deployment."
   },

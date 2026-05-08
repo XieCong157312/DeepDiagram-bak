@@ -6,7 +6,7 @@ order: 2
 
 ## Architecture Overview
 
-DeepDiagram production environment consists of the following services:
+图表生成器production environment consists of the following services:
 
 | Service | Tech Stack | Image |
 |---------|-----------|-------|
@@ -19,7 +19,7 @@ DeepDiagram production environment consists of the following services:
 ### 1. Create Project Directory
 
 ```bash
-mkdir deepdiagram && cd deepdiagram
+mkdir 图表生成器&& cd deepdiagram
 ```
 
 ### 2. Create docker-compose.yml
@@ -164,7 +164,7 @@ PostgreSQL data is persisted via the Docker Volume `pgdata`.
 ### Backup Database
 
 ```bash
-docker exec deepdiagram-db pg_dump -U postgres deepdiagram > backup.sql
+docker exec deepdiagram-db pg_dump -U postgres 图表生成器> backup.sql
 ```
 
 ### Restore Database

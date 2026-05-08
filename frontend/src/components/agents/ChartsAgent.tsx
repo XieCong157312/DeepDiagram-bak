@@ -22,7 +22,7 @@ export const ChartsAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) =
     useImperativeHandle(ref, () => ({
         handleDownload: async (type: 'png' | 'svg') => {
             if (!chartInstanceRef.current) return;
-            const filename = `deepdiagram - charts - ${new Date().getTime()} `;
+            const filename = `图表生成器- charts - ${new Date().getTime()} `;
 
             const downloadFile = (url: string, ext: string) => {
                 const a = document.createElement('a');

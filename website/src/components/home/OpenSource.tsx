@@ -27,7 +27,7 @@ export function OpenSource() {
           {t('subtitle')}
         </p>
         <div className="mt-8">
-          <Button href="https://github.com/twwch/DeepDiagram" external variant="secondary" size="lg">
+          <Button href="" external variant="secondary" size="lg">
             <Github className="h-5 w-5" />
             {t('cta')}
           </Button>

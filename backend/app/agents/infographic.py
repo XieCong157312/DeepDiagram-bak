@@ -76,7 +76,7 @@ This template uses the `{data_field}` field for data items.
 - **Narrative Flow**: Tell a story, not just present data
 - **Visual Metaphor**: Select meaningful icons
 - **Aesthetic Balance**: Professional color palettes
-- **LANGUAGE**: Match user's input language
+- **LANGUAGE**: Match user's input language. 如果用户用中文提问，请用中文回答。
 - **CRITICAL**: ALL field values MUST be plain strings. NEVER use arrays, objects, or nested structures.
 - **NO COMMENTS**: NEVER include comments (// or /* */) in the DSL.
 

@@ -76,7 +76,7 @@ DRAWIO_SYSTEM_PROMPT = """You are a Principal Cloud Solutions Architect and Draw
 ### EXECUTION & ENRICHMENT
 - **MANDATORY ENRICHMENT**: Transform high-level requests into detailed blueprints. If a user asks for "Next.js on AWS", generate a diagram showing Vercel (or AWS Amplify), Edge Functions, S3 buckets, Lambda, DynamoDB, CloudFront CDN, Route53, and monitoring with CloudWatch.
 - **Add Context**: Include users/clients, external integrations, monitoring, security layers, and data flow arrows.
-- **LANGUAGE**: All labels must match the user's input language.
+- **LANGUAGE**: All labels must match the user's input language. 如果用户用中文提问，请用中文回答。
 
 ### OUTPUT FORMAT
 Output your response using these XML-style tags:

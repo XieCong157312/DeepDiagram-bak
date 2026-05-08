@@ -1,18 +1,18 @@
-# DeepDiagram AI: Agentic AI Visualization Platform
+# 图表生成器: Agentic AI Visualization Platform
 
-**DeepDiagram AI** is an open-source, intelligent visualization platform that leverages **Agentic AI** and **multi-agent orchestration** to transform natural language and multimodal inputs into professional diagrams. Unlike traditional tools, DeepDiagram employs a **LangGraph-powered architecture** where specialized agents handle different visualization domains—from interactive mind maps to complex infographics.
+**图表生成器** is an open-source, intelligent visualization platform that leverages **Agentic AI** and **multi-agent orchestration** to transform natural language and multimodal inputs into professional diagrams. Unlike traditional tools, 图表生成器employs a **LangGraph-powered architecture** where specialized agents handle different visualization domains—from interactive mind maps to complex infographics.
 
 **Demo: [http://deepd.cturing.cn/](http://deepd.cturing.cn/)**
 
-![DeepDiagram AI Demo](./images/20251222-152234.gif)
+![图表生成器 Demo](./images/20251222-152234.gif)
 
-![DeepDiagram AI Demo1](./images/20251225-170102.gif)
+![图表生成器 Demo1](./images/20251225-170102.gif)
 
-![DeepDiagram AI Demo2](./images/20260104-093043.gif)
+![图表生成器 Demo2](./images/20260104-093043.gif)
 
-![DeepDiagram AI Demo3](./images/20260104-093302.gif)
+![图表生成器 Demo3](./images/20260104-093302.gif)
 
-![DeepDiagram AI Demo4](./images/20260104-093459.gif)
+![图表生成器 Demo4](./images/20260104-093459.gif)
 
 ---
 
@@ -118,7 +118,7 @@
 
 ## 🏗 System Architecture
 
-DeepDiagram AI uses a **React 19 + FastAPI** architecture, orchestrated by **LangGraph**. Each specialized agent directly outputs structured content with XML-style `<design_concept>` and `<code>` tags, streamed to the frontend via **SSE (Server-Sent Events)** for real-time preview.
+图表生成器 uses a **React 19 + FastAPI** architecture, orchestrated by **LangGraph**. Each specialized agent directly outputs structured content with XML-style `<design_concept>` and `<code>` tags, streamed to the frontend via **SSE (Server-Sent Events)** for real-time preview.
 
 ```mermaid
 graph TD
@@ -278,7 +278,7 @@ docker-compose logs -f backend  # View backend logs
 
 ### Option 3: Custom LLM Provider
 
-DeepDiagram supports any OpenAI-compatible API endpoint. Configure via `.env`:
+图表生成器supports any OpenAI-compatible API endpoint. Configure via `.env`:
 ```env
 OPENAI_BASE_URL=https://your-custom-endpoint.com/v1
 OPENAI_API_KEY=your-api-key
@@ -371,4 +371,4 @@ Key points:
 - **Discussions**: [GitHub Discussions](https://github.com/twwch/DeepDiagram/discussions)
 - **Demo**: [http://deepd.cturing.cn/](http://deepd.cturing.cn/)
 
-Made with ❤️ by the DeepDiagram Team
+Made with ❤️ by the 图表生成器Team
