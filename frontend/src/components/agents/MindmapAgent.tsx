@@ -142,12 +142,16 @@ const fitWithPadding = (me: any) => {
 export const MindmapAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) => {
     const { isStreamingCode } = useChatStore();
     let currentCode = cleanContent(content);
+
+    console.log('MindmapAgent received content:', currentCode);
+
     // Robustness: Strip markdown code fences if present
     currentCode = currentCode.replace(/^```(?:\w+)?\s*\n/, '').replace(/```\s*$/, '').trim();
     // Fix double-escaped newlines from LLM output (literal \n instead of actual newlines)
     if (currentCode.includes('\\n') && !currentCode.includes('\n')) {
         currentCode = currentCode.replace(/\\n/g, '\n').replace(/\\t/g, '\t');
     }
+
 
     const mindmapRef = useRef<HTMLDivElement>(null);
     const mindmapInstanceRef = useRef<any>(null);
@@ -188,6 +192,7 @@ export const MindmapAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) 
     }));
 
     const renderDiagram = async () => {
+        console.log('MindmapAgent rendering with content:', currentCode);
         if (!currentCode || !mindmapRef.current) return;
 
         if (isInternalUpdate.current) {
@@ -199,6 +204,7 @@ export const MindmapAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) 
             setError(null);
             const transformer = new Transformer();
             const { root } = transformer.transform(currentCode);
+            console.log(2222,root);
             const data = {
                 nodeData: convertToMindElixir(root)
             };
@@ -233,6 +239,7 @@ export const MindmapAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) 
     };
 
     useEffect(() => {
+        console.log('MindmapAgent renderDiagram content:', currentCode);
         if (!currentCode) {
             // Clear mindmap if code is empty
             if (mindmapInstanceRef.current && mindmapRef.current) {

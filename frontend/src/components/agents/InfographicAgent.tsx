@@ -90,6 +90,7 @@ if (AntVInfographic.registerResourceLoader) {
 
 export const InfographicAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) => {
     const { isStreamingCode } = useChatStore();
+    console.log('InfographicAgent content:', content);
     let currentCode = cleanContent(content);
     // Fix double-escaped newlines from LLM output
     if (currentCode.includes('\\n') && !currentCode.includes('\n')) {

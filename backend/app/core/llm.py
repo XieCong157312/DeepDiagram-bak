@@ -71,7 +71,7 @@ def get_llm(model_name: str | None = None, temperature: float = 0.3, api_key: st
     return ChatOpenAI(
         api_key=settings.OPENAI_API_KEY,
         base_url=settings.OPENAI_BASE_URL,
-        model=model_name or settings.MODEL_ID or "claude-sonnet-3.7",
+        model=model_name or settings.MODEL_ID or "claude-3-sonnet-20240229",
         temperature=temperature,
         streaming=True,
         request_timeout=120,

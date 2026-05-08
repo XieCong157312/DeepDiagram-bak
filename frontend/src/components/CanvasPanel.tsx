@@ -136,22 +136,22 @@ export const CanvasPanel = () => {
 
                                 // Mindmap 特殊逻辑：只有 tool_start 后才开始渲染
                                 if (activeAgent === 'mindmap') {
-                                    const hasToolStart = activeMsg.steps?.some(s => s.type === 'tool_start');
-                                    if (!hasToolStart) return '';  // 工具还没开始，不渲染
+                                    // const hasToolStart = activeMsg.steps?.some(s => s.type === 'tool_start');
+                                    // if (!hasToolStart) return '';  // 工具还没开始，不渲染
 
                                     const streamingStep = [...(activeMsg.steps || [])].reverse().find(s =>
-                                        (s.type === 'tool_end' || (s.type === 'tool_start' && s.name === 'Result')) && s.content
+                                        s.type === 'tool_end' && s.content
                                     );
                                     return streamingStep?.content || '';
                                 }
 
                                 // Infographic also supports streaming
                                 if (activeAgent === 'infographic') {
-                                    const hasToolStart = activeMsg.steps?.some(s => s.type === 'tool_start');
-                                    if (!hasToolStart) return '';
+                                    // const hasToolStart = activeMsg.steps?.some(s => s.type === 'tool_start');
+                                    // if (!hasToolStart) return '';
 
                                     const streamingStep = [...(activeMsg.steps || [])].reverse().find(s =>
-                                        (s.type === 'tool_end' || (s.type === 'tool_start' && s.name === 'Result')) && s.content
+                                        (s.type === 'tool_end' && s.content)
                                     );
                                     return streamingStep?.content || '';
                                 }
@@ -164,6 +164,7 @@ export const CanvasPanel = () => {
                             };
                             const rawContent = getCode();
                             const { code } = processContent(rawContent);
+                        
 
                             const renderAgent = () => {
                                 if (activeAgent === 'flowchart') return <ErrorBoundary><FlowAgent key={`flow-${renderKey}`} ref={agentRef} content={code} /></ErrorBoundary>;

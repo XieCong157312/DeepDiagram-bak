@@ -894,6 +894,29 @@ export const ChatPanel = () => {
                                     const stateEnd = useChatStore.getState();
                                     const lastMsgEnd = stateEnd.allMessages[stateEnd.allMessages.length - 1];
                                     const lastStepEnd = lastMsgEnd?.steps?.[lastMsgEnd.steps.length - 1];
+                                    console.log('--- TOOL END DEBUG ---');
+                                    // let suffix = "\n</code>";
+
+                                    // 检查字符串中是否包含 <code> 开始标签
+                                    const hasOpeningTag = data.output.includes('<code>');
+                                    if (hasOpeningTag) {
+                                        // 补全缺失的 > 号，将结尾的 </code 替换为 </code>
+                                        data.output = data.output.replace(/\s*<\/code$/, '</code>');
+                                    } else {
+                                        // 删除结尾的不完整 </code 标签
+                                        data.output = data.output.replace(/\s*<\/code$/, '');
+                                    }
+
+
+                                    // data.output = data.output.replace(/\s*<\/code$/, '');
+
+
+                                    // if (data.output.endsWith(suffix)) {
+                                    //     console.log('Removing suffix from tool output');
+                                        
+                                    //     // 或者 str = str.substring(0, str.length - suffix.length);
+                                    // }
+                                    
 
                                     if (lastStepEnd?.isStreaming) {
                                         // IMPORTANT: Prefer data.output (sanitized by backend) over streamed content

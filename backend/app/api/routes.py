@@ -1,3 +1,5 @@
+from curses import raw
+
 from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -185,8 +187,14 @@ def extract_tag_fields(content: str) -> tuple[str, str]:
 
     # Extract code
     code_match = re.search(r'<code>\s*([\s\S]*?)\s*</code>', content)
+    logger.info(code_match)
+
     if code_match:
         code = code_match.group(1).strip()
+        # # compatible with some models that may output incomplete tags
+        # code = code.removesuffix('\n</code>')
+        # logger.info(f"Extracted code (after cleanup): {code[:100]}...")
+
 
     return design_concept, code
 
@@ -201,9 +209,9 @@ def sanitize_drawio_xml(xml_content: str) -> str:
         return xml_content
     
 
-    xml_content = re.sub(r'<\/code>\s*$', '', xml_content, flags=re.IGNORECASE)
-    xml_content = re.sub(r'<\/code', '', xml_content, flags=re.IGNORECASE)
-    xml_content = re.sub(r'^<code>\s*', '', xml_content, flags=re.IGNORECASE)
+    # xml_content = re.sub(r'<\/code>\s*$', '', xml_content, flags=re.IGNORECASE)
+    # xml_content = re.sub(r'<\/code', '', xml_content, flags=re.IGNORECASE)
+    # xml_content = re.sub(r'^<code>\s*', '', xml_content, flags=re.IGNORECASE)
 
     # Remove <Array .../> elements (self-closing) - handles multiline
     xml_content = re.sub(r'<Array[^/>]*?/>', '', xml_content, flags=re.DOTALL)
