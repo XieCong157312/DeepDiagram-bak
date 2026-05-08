@@ -44,7 +44,7 @@ def get_llm(model_name: str | None = None, temperature: float = 0.3, api_key: st
         return ChatOpenAI(
             api_key=final_api_key,
             base_url=final_base_url,
-            model=final_model or "claude-3-sonnet-20240229",
+            model=final_model or "qwen3-4b-instruct-biology-kimi-k2-thinking",
             temperature=temperature,
             streaming=True,
             request_timeout=120,
@@ -71,7 +71,7 @@ def get_llm(model_name: str | None = None, temperature: float = 0.3, api_key: st
     return ChatOpenAI(
         api_key=settings.OPENAI_API_KEY,
         base_url=settings.OPENAI_BASE_URL,
-        model=model_name or settings.MODEL_ID or "claude-3-sonnet-20240229",
+        model=model_name or settings.MODEL_ID or "qwen3-4b-instruct-biology-kimi-k2-thinking",
         temperature=temperature,
         streaming=True,
         request_timeout=120,

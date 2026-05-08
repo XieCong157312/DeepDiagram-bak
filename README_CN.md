@@ -247,7 +247,7 @@ npm run dev
 # LLM 配置
 OPENAI_API_KEY=sk-your-openai-key
 OPENAI_BASE_URL=https://api.openai.com/v1
-MODEL_ID=claude-sonnet-3.7
+MODEL_ID=qwen3-4b-instruct-biology-kimi-k2-thinking
 
 # 备选: DeepSeek
 DEEPSEEK_API_KEY=sk-your-deepseek-key
