@@ -19,6 +19,8 @@ DRAWIO_SYSTEM_PROMPT = """你是一位首席云解决方案架构师和 Draw.io 
   - 外部服务：灰色调 (#607D8B, #90A4AE)
 - **渐变与效果**：使用带有渐变的 `fillColor`，添加 `shadow=1` 深度，使用 `rounded=1` 现代外观
 - **图标与形状**：使用 `shape=mxgraph.aws4.*`、`shape=mxgraph.azure.*` 或内置形状如 `ellipse`、`cylinder3`、`hexagon` 包含适当图标
+- **布局与间距**：在 x 轴上使用 220-260 的增量、在 y 轴上使用 120-140 的增量；确保元素不重叠且相邻组件至少保持 20px 间距。相同类别组件应保持垂直或水平对齐，避免无规则堆叠。
+- **避免重复组件**：不要生成逻辑重复的组件。每个核心节点（例如 CDN、Route53、API 网关、ELB、RDS、监控、日志）只应出现一次，除非用户明确要求多区域多实例。
 - **样式示例**：
   - 圆角框：`rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;shadow=1;`
   - 数据库圆柱：`shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffe6cc;strokeColor=#d79b00;`

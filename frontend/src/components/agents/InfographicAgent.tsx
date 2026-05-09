@@ -194,6 +194,35 @@ export const InfographicAgent = forwardRef<AgentRef, AgentProps>(({ content }, r
         }
     }));
 
+    const parseChineseNumericValue = (raw: string): number | null => {
+        if (typeof raw !== 'string') return null;
+
+        const trimmed = raw.trim().replace(/,/g, '');
+        const numMatch = trimmed.match(/([+-]?\d+(?:\.\d+)?)/);
+        const num = numMatch ? parseFloat(numMatch[1]) : NaN;
+        if (Number.isNaN(num)) return null;
+
+        if (/亿/.test(trimmed)) {
+            return num;
+        }
+        if (/万/.test(trimmed)) {
+            return num / 10000;
+        }
+        return num;
+    };
+
+    const normalizeInfographicValues = (block: string): string => {
+        return block.split('\n').map((line) => {
+            const match = line.match(/^(\s*value\s+)(.+)$/);
+            if (!match) return line;
+
+            const parsed = parseChineseNumericValue(match[2]);
+            if (parsed === null) return line;
+
+            return `${match[1]}${parsed}`;
+        }).join('\n');
+    };
+
     useEffect(() => {
         const activeBlock = blocks[activeBlockIndex];
         if (!activeBlock || !containerRef.current) {
@@ -216,12 +245,13 @@ export const InfographicAgent = forwardRef<AgentRef, AgentProps>(({ content }, r
         }
 
         const infographic = infographicRef.current;
+        const normalizedBlock = normalizeInfographicValues(activeBlock);
 
         try {
             setError(null);
 
             // Wait for icons etc.
-            infographic.render(activeBlock);
+            infographic.render(normalizedBlock);
 
             // Only report success when not streaming
             if (!isStreamingCode) {
