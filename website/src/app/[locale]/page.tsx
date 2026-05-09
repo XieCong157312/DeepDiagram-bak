@@ -10,7 +10,7 @@ import { createMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const title = locale === 'zh' ? 'DeepDiagram AI - 智能图表生成平台' : 'DeepDiagram AI - Intelligent Diagram Generator';
+  const title = locale === 'zh' ? '图表生成器 - 智能图表生成平台' : '图表生成器 - Intelligent Diagram Generator';
   const description = locale === 'zh'
     ? '开源 AI 可视化平台，用自然语言生成专业思维导图、流程图、数据图表和架构图。'
     : 'Open source AI visualization platform. Generate professional mind maps, flowcharts, data charts, and architecture diagrams with natural language.';

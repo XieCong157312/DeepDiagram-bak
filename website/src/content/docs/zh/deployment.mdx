@@ -6,7 +6,7 @@ order: 2
 
 ## 架构概览
 
-DeepDiagram 生产环境由以下服务组成：
+图表生成器生产环境由以下服务组成：
 
 | 服务 | 技术栈 | 镜像 |
 |------|--------|------|
@@ -19,7 +19,7 @@ DeepDiagram 生产环境由以下服务组成：
 ### 1. 创建项目目录
 
 ```bash
-mkdir deepdiagram && cd deepdiagram
+mkdir 图表生成器&& cd deepdiagram
 ```
 
 ### 2. 创建 docker-compose.yml
@@ -164,7 +164,7 @@ PostgreSQL 数据通过 Docker Volume `pgdata` 持久化。
 ### 备份数据库
 
 ```bash
-docker exec deepdiagram-db pg_dump -U postgres deepdiagram > backup.sql
+docker exec deepdiagram-db pg_dump -U postgres 图表生成器> backup.sql
 ```
 
 ### 恢复数据库

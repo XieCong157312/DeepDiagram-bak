@@ -85,7 +85,7 @@ async def router_node(state: AgentState):
 
     descriptions_text = "\n".join([f"- '{key}': {desc}" for key, desc in agent_descriptions.items()])
 
-    system_prompt = f"""You are an intelligent DeepDiagram Router.
+    system_prompt = f"""You are an intelligent 图表生成器Router.
     Your goal is to analyze the user's intent and route to the most appropriate diagram agent.
     
     AGENT EXECUTION HISTORY (Agents + Tools): 
@@ -142,6 +142,7 @@ async def router_node(state: AgentState):
     {conversation_text}
     
     Please analyze the user's latest message (which may include an image) and classify the intent.
+    如果用户用中文提问，请使用中文回答。
     Respond in the same language as the user's input (e.g., if the user asks in Chinese, respond in Chinese).
     """
     

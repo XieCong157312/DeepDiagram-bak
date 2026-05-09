@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   return createMetadata({
     title: locale === 'zh' ? '关于我们' : 'About',
-    description: locale === 'zh' ? '了解 DeepDiagram 的使命和技术' : 'Learn about DeepDiagram\'s mission and technology',
+    description: locale === 'zh' ? '了解 图表生成器的使命和技术' : 'Learn about DeepDiagram\'s mission and technology',
     locale,
     path: '/about',
   });
@@ -61,7 +61,7 @@ function AboutContent() {
           })}
         </div>
         <div className="mt-12 text-center">
-          <Button href="https://github.com/twwch/DeepDiagram" external variant="secondary" size="lg">
+          <Button href="" external variant="secondary" size="lg">
             <Github className="h-4 w-4" />
             View on GitHub
           </Button>

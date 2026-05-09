@@ -48,7 +48,7 @@ export function Header() {
           {/* Desktop Actions */}
           <div className="hidden items-center gap-3 md:flex">
             <LocaleSwitcher />
-            <Button href="https://github.com/twwch/DeepDiagram" external variant="ghost" size="sm">
+            <Button href="" external variant="ghost" size="sm">
               <Github className="h-4 w-4" />
               {tc('viewOnGitHub')}
             </Button>

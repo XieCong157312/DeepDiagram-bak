@@ -7,7 +7,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   return createMetadata({
     title: locale === 'zh' ? '更新日志' : 'Changelog',
-    description: locale === 'zh' ? 'DeepDiagram 版本更新记录' : 'DeepDiagram version history',
+    description: locale === 'zh' ? '图表生成器版本更新记录' : '图表生成器version history',
     locale,
     path: '/changelog',
   });

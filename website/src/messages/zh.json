@@ -98,7 +98,7 @@
   "about": {
     "title": "关于 DeepDiagram",
     "subtitle": "我们相信 AI 可以让每个人都成为可视化专家",
-    "mission": "DeepDiagram 是一个开源的 AI 可视化平台，致力于通过自然语言交互，让专业图表的创建变得简单高效。",
+    "mission": "图表生成器是一个开源的 AI 可视化平台，致力于通过自然语言交互，让专业图表的创建变得简单高效。",
     "techTitle": "技术架构",
     "techDesc": "基于 LangGraph 多智能体架构，前端 React + TypeScript，后端 FastAPI + PostgreSQL，支持 Docker 一键部署。"
   },
@@ -109,6 +109,6 @@
   },
   "changelog": {
     "title": "更新日志",
-    "subtitle": "DeepDiagram 的版本更新记录"
+    "subtitle": "图表生成器的版本更新记录"
   }
 }

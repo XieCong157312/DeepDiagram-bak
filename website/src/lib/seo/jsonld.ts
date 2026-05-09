@@ -6,7 +6,7 @@ export function websiteJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'DeepDiagram AI',
+    name: '图表生成器',
     url: SITE_URL,
     description: 'AI-powered intelligent visualization platform',
   };
@@ -33,12 +33,12 @@ export function blogPostJsonLd(post: BlogPost) {
     datePublished: post.frontmatter.date,
     author: {
       '@type': 'Organization',
-      name: 'DeepDiagram Team',
+      name: '图表生成器Team',
       url: SITE_URL,
     },
     publisher: {
       '@type': 'Organization',
-      name: 'DeepDiagram AI',
+      name: '图表生成器',
       logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/logo.png` },
     },
     mainEntityOfPage: {

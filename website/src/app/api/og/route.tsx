@@ -12,7 +12,7 @@ const categoryLabels: Record<string, { zh: string; en: string }> = {
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
-  const title = searchParams.get('title') || 'DeepDiagram AI';
+  const title = searchParams.get('title') || '图表生成器';
   const category = searchParams.get('category') || '';
   const locale = searchParams.get('locale') || 'zh';
   const date = searchParams.get('date') || '';

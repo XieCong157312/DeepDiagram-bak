@@ -52,7 +52,7 @@ export function CTABanner() {
             {t('button')}
             <ArrowRight className="h-4 w-4" />
           </Button>
-          <Button href="https://github.com/twwch/DeepDiagram" external variant="secondary" size="lg" className="border border-white/10 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20">
+          <Button href="" external variant="secondary" size="lg" className="border border-white/10 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20">
             <Github className="h-4 w-4" />
             GitHub
           </Button>
