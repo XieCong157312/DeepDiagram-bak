@@ -94,12 +94,12 @@ export const ChartsAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) =
                 delete options.height;
 
                 if (!options.grid || typeof options.grid !== 'object') {
-                    options.grid = { left: '5%', right: '5%', top: '15%', bottom: '10%', containLabel: true };
+                    options.grid = { left: '5%', right: '5%', top: '18%', bottom: '12%', containLabel: true };
                 } else {
                     if (options.grid.left == null) options.grid.left = '5%';
                     if (options.grid.right == null) options.grid.right = '5%';
-                    if (options.grid.top == null) options.grid.top = '15%';
-                    if (options.grid.bottom == null) options.grid.bottom = '10%';
+                    if (options.grid.top == null) options.grid.top = '18%';
+                    if (options.grid.bottom == null) options.grid.bottom = '12%';
                     options.grid.containLabel = true;
                 }
 
@@ -109,8 +109,34 @@ export const ChartsAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) =
                     options.tooltip.confine = true;
                 }
 
+                if (!options.title) {
+                    options.title = { left: 'center', top: '8', textStyle: { fontWeight: 700, fontSize: 18 }, subtextStyle: { fontSize: 12 } };
+                } else if (typeof options.title === 'object') {
+                    if (options.title.left == null) options.title.left = 'center';
+                    if (options.title.top == null) options.title.top = 8;
+                    if (!options.title.textStyle) options.title.textStyle = { fontWeight: 700, fontSize: 18 };
+                    if (!options.title.subtextStyle) options.title.subtextStyle = { fontSize: 12 };
+                }
+
+                if (!options.legend || typeof options.legend !== 'object') {
+                    options.legend = { top: '10%', left: 'center', type: 'scroll', orient: 'horizontal' };
+                } else {
+                    if (options.legend.top == null) options.legend.top = '10%';
+                    if (options.legend.left == null) options.legend.left = 'center';
+                    if (options.legend.type == null) options.legend.type = 'scroll';
+                    if (options.legend.orient == null) options.legend.orient = 'horizontal';
+                }
+
                 if (!options.backgroundColor) {
                     options.backgroundColor = 'transparent';
+                }
+
+                // If title/subtext or legend exist, ensure grid top has enough spacing
+                if (options.title && (options.title.text || options.title.subtext)) {
+                    const topVal = parseInt(String(options.grid.top).replace('%', ''), 10);
+                    if (!Number.isNaN(topVal) && topVal < 20) {
+                        options.grid.top = '20%';
+                    }
                 }
             }
 
