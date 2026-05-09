@@ -93,14 +93,30 @@ export const ChartsAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) =
                 delete options.width;
                 delete options.height;
 
-                if (!options.grid || typeof options.grid !== 'object') {
-                    options.grid = { left: '5%', right: '5%', top: '18%', bottom: '12%', containLabel: true };
+                const normalizeGrid = (grid: any) => ({
+                    left: grid?.left ?? '5%',
+                    right: grid?.right ?? '5%',
+                    top: grid?.top ?? '22%',
+                    bottom: grid?.bottom ?? '12%',
+                    containLabel: grid?.containLabel !== undefined ? grid.containLabel : true,
+                    show: grid?.show !== undefined ? grid.show : true
+                });
+
+                if (Array.isArray(options.grid)) {
+                    options.grid = options.grid.map(normalizeGrid);
+                } else if (!options.grid || typeof options.grid !== 'object') {
+                    options.grid = normalizeGrid({});
                 } else {
-                    if (options.grid.left == null) options.grid.left = '5%';
-                    if (options.grid.right == null) options.grid.right = '5%';
-                    if (options.grid.top == null) options.grid.top = '18%';
-                    if (options.grid.bottom == null) options.grid.bottom = '12%';
-                    options.grid.containLabel = true;
+                    options.grid = normalizeGrid(options.grid);
+                }
+
+                if (Array.isArray(options.grid) && Array.isArray(options.xAxis)) {
+                    while (options.grid.length < options.xAxis.length) {
+                        options.grid.push(normalizeGrid({ top: '60%', bottom: '12%' }));
+                    }
+                    if (options.grid.length > options.xAxis.length) {
+                        options.grid = options.grid.slice(0, options.xAxis.length);
+                    }
                 }
 
                 if (!options.tooltip) {
@@ -110,7 +126,7 @@ export const ChartsAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) =
                 }
 
                 if (!options.title) {
-                    options.title = { left: 'center', top: '8', textStyle: { fontWeight: 700, fontSize: 18 }, subtextStyle: { fontSize: 12 } };
+                    options.title = { left: 'center', top: 8, textStyle: { fontWeight: 700, fontSize: 18 }, subtextStyle: { fontSize: 12 } };
                 } else if (typeof options.title === 'object') {
                     if (options.title.left == null) options.title.left = 'center';
                     if (options.title.top == null) options.title.top = 8;
@@ -119,23 +135,37 @@ export const ChartsAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) =
                 }
 
                 if (!options.legend || typeof options.legend !== 'object') {
-                    options.legend = { top: '10%', left: 'center', type: 'scroll', orient: 'horizontal' };
+                    options.legend = { top: '15%', left: 'center', type: 'scroll', orient: 'horizontal', itemGap: 16 };
                 } else {
-                    if (options.legend.top == null) options.legend.top = '10%';
+                    if (options.legend.top == null) options.legend.top = '15%';
                     if (options.legend.left == null) options.legend.left = 'center';
                     if (options.legend.type == null) options.legend.type = 'scroll';
                     if (options.legend.orient == null) options.legend.orient = 'horizontal';
+                    if (options.legend.itemGap == null) options.legend.itemGap = 16;
                 }
 
                 if (!options.backgroundColor) {
                     options.backgroundColor = 'transparent';
                 }
 
-                // If title/subtext or legend exist, ensure grid top has enough spacing
-                if (options.title && (options.title.text || options.title.subtext)) {
-                    const topVal = parseInt(String(options.grid.top).replace('%', ''), 10);
+                const ensureGridTop = (grid: any) => {
+                    const topVal = parseInt(String(grid.top).replace('%', ''), 10);
                     if (!Number.isNaN(topVal) && topVal < 20) {
-                        options.grid.top = '20%';
+                        grid.top = '20%';
+                    }
+                    if (String(grid.bottom).endsWith('%')) {
+                        const bottomVal = parseInt(String(grid.bottom).replace('%', ''), 10);
+                        if (!Number.isNaN(bottomVal) && bottomVal < 10) {
+                            grid.bottom = '12%';
+                        }
+                    }
+                };
+
+                if (options.title && (options.title.text || options.title.subtext)) {
+                    if (Array.isArray(options.grid)) {
+                        options.grid.forEach((grid: any) => ensureGridTop(grid));
+                    } else {
+                        ensureGridTop(options.grid);
                     }
                 }
             }
@@ -155,13 +185,26 @@ export const ChartsAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) =
             const hasYAxis = Array.isArray(options.yAxis) ? options.yAxis.length > 0 : !!options.yAxis;
 
             if (hasXAxis && hasYAxis) {
-                if (!options.dataZoom) {
+                if (!options.dataZoom && !options.series?.some((s: any) => s.type === 'pie')) {
                     options.dataZoom = [
                         { type: 'inside', xAxisIndex: [0], filterMode: 'filter' },
                         { type: 'slider', xAxisIndex: [0], filterMode: 'filter' }
                     ];
                 }
                 if (!options.tooltip) options.tooltip = { trigger: 'axis', confine: true };
+            }
+
+            if (Array.isArray(options.xAxis) && Array.isArray(options.grid) && options.grid.length === 1) {
+                options.grid = options.grid.concat(options.grid.map((g: any) => ({ ...g, top: '60%', bottom: '12%' })).slice(0, options.xAxis.length - 1));
+            }
+
+            if (Array.isArray(options.grid) && Array.isArray(options.xAxis) && options.grid.length > 1) {
+                options.grid = options.grid.map((grid: any, index: number) => ({
+                    ...grid,
+                    top: grid.top || `${20 + index * 40}%`,
+                    bottom: grid.bottom || '12%',
+                    containLabel: true
+                }));
             }
 
             if (options.series) {
