@@ -1016,7 +1016,7 @@ export const ChatPanel = () => {
                         className="flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 text-white rounded-full text-sm font-bold hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20 active:scale-95"
                     >
                         <Plus className="w-4 h-4" />
-                        <span>New Chat</span>
+                        <span>新对话</span>
                     </button>
 
                     {/* History Dropdown */}
@@ -1031,7 +1031,7 @@ export const ChatPanel = () => {
                             )}
                         >
                             <HistoryIcon className="w-3.5 h-3.5" />
-                            <span>History</span>
+                            <span>历史</span>
                             <ChevronDown className={cn("w-3 h-3 transition-transform duration-200", showHistory && "rotate-180")} />
                         </button>
 

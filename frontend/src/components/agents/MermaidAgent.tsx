@@ -60,6 +60,50 @@ export const MermaidAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) 
     const [error, setError] = useState<string | null>(null);
     const transformRef = useRef<any>(null);
 
+    const sanitizeMermaidSequenceNotes = (code: string): string => {
+        return code.split('\n').map((line) => {
+            const match = line.match(/^(\s*note\s+over\s+)([^:]+)(:\s*)(.*)$/);
+            if (!match) return line;
+
+            const participants = match[2].split(',').map((p) => p.trim()).filter(Boolean);
+            if (participants.length <= 2) return line;
+
+            const safeParticipants = participants.slice(0, 2).join(',');
+            return `${match[1]}${safeParticipants}${match[3]}${match[4]}`;
+        }).join('\n');
+    };
+
+    const sanitizeMermaidSequenceLabels = (code: string): string => {
+        return code.split('\n').map((line) => {
+            const match = line.match(/^\s*([^\s].*?)(->>|-->>|->|-->)\s*([^:]+):(.*)$/);
+            if (!match) {
+                return line;
+            }
+
+            const prefix = match[1] + match[2] + match[3] + ':';
+            let label = match[4];
+
+            // Shorten long URLs/query strings within labels to avoid parser edge cases
+            label = label.replace(/(https?:\/\/[^\s]+?\?[^\s]+)/g, (m) => {
+                return m.split('?')[0] + '?...';
+            });
+            label = label.replace(/(\S+\?response_type=[^\s]+)/g, (m) => {
+                const [path] = m.split('?');
+                return path + '?...';
+            });
+            label = label.replace(/&[^\s=]+=[^\s&]+/g, '...');
+            return prefix + label;
+        }).join('\n');
+    };
+
+    const cleanMermaidCode = (code: string): string => {
+        let cleaned = code.replace(/<[^>]+>/g, '');
+        cleaned = cleaned.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+        cleaned = cleaned.replace(/[\u200B-\u200D\uFEFF]/g, '');
+        cleaned = cleaned.replace(/\t/g, '    ');
+        return cleaned.trim();
+    };
+
     const handleZoomToFit = useCallback(() => {
         if (!transformRef.current || !wrapperRef.current || !dimensions) return;
 
@@ -187,7 +231,21 @@ export const MermaidAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) 
                     }
                 }
 
-                await mermaid.parse(cleanCode);
+                cleanCode = cleanMermaidCode(cleanCode);
+                cleanCode = sanitizeMermaidSequenceNotes(cleanCode);
+
+                try {
+                    await mermaid.parse(cleanCode);
+                } catch (initialError) {
+                    if (cleanCode.includes('sequenceDiagram')) {
+                        let fallbackCode = sanitizeMermaidSequenceLabels(cleanCode);
+                        fallbackCode = sanitizeMermaidSequenceNotes(fallbackCode);
+                        await mermaid.parse(fallbackCode);
+                        cleanCode = fallbackCode;
+                    } else {
+                        throw initialError;
+                    }
+                }
 
                 const id = `mermaid-${Date.now()}`;
                 const { svg } = await mermaid.render(id, cleanCode);
