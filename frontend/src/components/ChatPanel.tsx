@@ -18,57 +18,57 @@ import { ExecutionTrace } from './ExecutionTrace';
 const AGENTS = [
     {
         id: 'flowchart',
-        label: 'Flowchart',
-        description: 'Architect logic with intelligent auto-layout. Transform complex workflows into clear, readable diagrams with optimized edge routing.',
-        features: ['Logic flows', 'Step-by-step processes', 'Conditional routing'],
+        label: '流程图',
+        description: '使用智能自动布局构建逻辑。将复杂工作流转换为清晰、可读的图表，具有优化的边路由。',
+        features: ['逻辑流程', '逐步过程', '条件路由'],
         icon: Workflow,
         color: 'indigo',
-        demoInput: '@flowchart A 5-level deep mindmap of Artificial Intelligence covering History, Technical Pillars (ML/DL/NLP), Ethics & Society, and Future Horizons like AGI.'
+        demoInput: '@flowchart 人工智能的5层深度思维导图，涵盖历史、技术支柱（ML/DL/NLP）、伦理与社会，以及像AGI这样的未来视野。'
     },
     {
         id: 'mindmap',
-        label: 'Mindmap',
-        description: 'Infinite canvas for visual thinking. Map out hierarchical structures, brainstorm ideas, and organize messy concepts into clean, expandable trees.',
-        features: ['Idea mapping', 'Knowledge structure', 'Brainstorming'],
+        label: '思维导图',
+        description: '无限画布用于视觉思维。映射层次结构、头脑风暴想法，并将杂乱的概念组织成干净、可扩展的树形结构。',
+        features: ['想法映射', '知识结构', '头脑风暴'],
         icon: Network,
         color: 'amber',
-        demoInput: '@mindmap plan a marketing strategy for a new coffee shop.'
+        demoInput: '@mindmap 为一家新咖啡店规划营销策略。'
     },
     {
         id: 'mermaid',
         label: 'Mermaid',
-        description: 'Industrial-strength text-to-diagram engine. Generate Sequence, Gantt, Class, and ER diagrams using clean Markdown-inspired syntax.',
-        features: ['Sequence diagrams', 'Gantt charts', 'Text-to-visual'],
+        description: '工业级文本到图表引擎。使用干净的 Markdown 启发语法生成序列、甘特、类和 ER 图。',
+        features: ['序列图', '甘特图', '文本到视觉'],
         icon: Code2,
         color: 'emerald',
-        demoInput: '@mermaid a comprehensive sequence diagram for a distributed OAuth2.0 authentication flow involving Client, Auth Server, and Resource Server.'
+        demoInput: '@mermaid 分布式OAuth2.0认证流程的全面序列图，涉及客户端、认证服务器和资源服务器。'
     },
     {
         id: 'charts',
-        label: 'Charts',
-        description: 'Professional data storytelling. Convert raw data into interactive Bar, Line, Pie, and Gauge charts with sleek animations and responsive designs.',
-        features: ['Data visualization', 'Dashboard metrics', 'Trend analysis'],
+        label: '图表',
+        description: '专业数据叙事。将原始数据转换为交互式条形图、线图、饼图和仪表盘，具有流畅动画和响应式设计。',
+        features: ['数据可视化', '仪表板指标', '趋势分析'],
         icon: BarChart3,
         color: 'rose',
-        demoInput: '@charts a professional dashboard with a 12-month revenue trend line including area gradients, and a bar chart comparing sales performance across 5 regions.'
+        demoInput: '@charts 包含12个月收入趋势线（带有面积渐变）和5个区域销售业绩比较条形图的专业仪表板。'
     },
     {
         id: 'drawio',
         label: 'Draw.io',
-        description: 'The ultimate canvas for precision engineering. Design cloud architectures, network topologies, and blueprint-level technical diagrams.',
-        features: ['Cloud architecture', 'Network topology', 'Professional drafting'],
+        description: '精密工程的终极画布。设计云架构、网络拓扑和蓝图级技术图表。',
+        features: ['云架构', '网络拓扑', '专业绘图'],
         icon: PenTool,
         color: 'blue',
-        demoInput: '@drawio a professional cloud architecture diagram for a global e-commerce platform using AWS (VPC, Route53, ELB, AutoScaling, RDS, and CloudFront).'
+        demoInput: '@drawio 使用AWS（VPC、Route53、ELB、AutoScaling、RDS和CloudFront）的全球电子商务平台专业云架构图。'
     },
     {
         id: 'infographic',
-        label: 'Infographic',
-        description: 'Advanced data storytelling. Create professional infographics, data posters, and visual summaries with creative layouts and rich components.',
-        features: ['Data posters', 'Visual storytelling', 'Creative layouts'],
+        label: '信息图',
+        description: '高级数据叙事。使用创意布局和丰富组件创建专业信息图、数据海报和视觉摘要。',
+        features: ['数据海报', '视觉叙事', '创意布局'],
         icon: BarChart3,
         color: 'violet',
-        demoInput: '@infographic a revenue growth pie chart showing 3-year comparison: 2021 $120M initial phase, 2022 $210M breakthrough growth, 2023 $340M scale effect, 2024 target $500M ambitious goal.'
+        demoInput: '@infographic 显示3年比较的收入增长饼图：2021年1.2亿美元初始阶段，2022年2.1亿美元突破性增长，2023年3.4亿美元规模效应，2024年目标5亿美元雄心勃勃目标。'
     },
 ];
 

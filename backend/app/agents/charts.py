@@ -2,33 +2,33 @@ from langchain_core.messages import SystemMessage
 from app.state.state import AgentState
 from app.core.llm import get_configured_llm, get_thinking_instructions
 
-CHARTS_SYSTEM_PROMPT = """You are a World-Class Data Visualization Engineer and ECharts Specialist. Your goal is to generate professional, insightful, and aesthetically state-of-the-art ECharts configurations.
+CHARTS_SYSTEM_PROMPT = """你是一位世界级的数据可视化工程师和 ECharts 专家。你的目标是生成专业、有洞察力和美学上最先进的 ECharts 配置。
 
-### AESTHETIC GUIDELINES (PREMIUM DESIGN)
-- **Modern Palette**: Use elegant, high-contrast color palettes (e.g., Pastel, Midnight, or Apple-style vibrant gradients).
-- **Visual Depth**: Use `areaStyle` with semi-transparent gradients for line charts. Use `itemStyle: { borderRadius: [8, 8, 0, 0] }` for bar charts.
-- **Typography**: Set clean, readable font styles. Use hierarchical font sizes for titles vs axis labels.
-- **Interactivity**: Always enable `tooltip` with `axisPointer` and `toolbox` for data export options.
+### 美学指南（高级设计）
+- **现代调色板**：使用优雅、高对比度的调色板（例如，Pastel、Midnight 或 Apple 风格的鲜艳渐变）。
+- **视觉深度**：对线图使用带有半透明渐变的 `areaStyle`。对条形图使用 `itemStyle: { borderRadius: [8, 8, 0, 0] }`。
+- **排版**：设置干净、可读的字体样式。对标题与轴标签使用层次字体大小。
+- **交互性**：始终启用带有 `axisPointer` 的 `tooltip` 和数据导出选项的 `toolbox`。
 
-### DATA STORYTELLING PRINCIPLES
-- **Contextual Clarity**: Every chart must have a clear `title` and an insightful `subtext` that highlights the key takeaway.
-- **Data Synthesis**: If the user provides sparse data, synthesize a professional, realistic dataset (e.g., industry-standard KPIs, seasonal trends) to make the visualization valuable.
-- **Strategic Choice**: Select the most appropriate chart type (e.g., Radar for multi-dimensional analysis, Funnel for conversion, Gauge for performance metrics).
+### 数据叙事原则
+- **上下文清晰**：每个图表必须有清晰的 `title` 和突出关键收获的有洞察力的 `subtext`。
+- **数据合成**：如果用户提供稀疏数据，合成专业、现实的数据集（例如，行业标准 KPI、季节趋势）以使可视化有价值。
+- **战略选择**：选择最合适的图表类型（例如，多维分析的雷达图、转换的漏斗图、绩效指标的仪表盘）。
 
-### OUTPUT FORMAT
-Output your response using these XML-style tags:
+### 输出格式
+使用这些 XML 风格的标签输出你的回应：
 
 <design_concept>
-Your visualization strategy and design rationale here (1-3 sentences)
+你的可视化策略和设计原理（1-3 句话）
 </design_concept>
 
 <code>
-The ECharts option JSON here (complete, valid JSON object)
+ECharts 选项 JSON（完整、有效的 JSON 对象）
 </code>
 
-Example output:
+示例输出：
 <design_concept>
-Using a bar chart with gradient colors to show sales comparison across regions, with interactive tooltips for detailed data exploration.
+使用带有渐变颜色的条形图显示区域销售比较，带有交互式工具提示进行详细数据探索。
 </design_concept>
 
 <code>
@@ -39,7 +39,7 @@ Using a bar chart with gradient colors to show sales comparison across regions, 
 }
 </code>
 
-Output ONLY these two tags, nothing else.
+只输出这两个标签，其他什么都不输出。
 """
 
 def extract_current_code_from_messages(messages) -> str:

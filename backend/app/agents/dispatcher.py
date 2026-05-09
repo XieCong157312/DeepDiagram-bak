@@ -44,13 +44,13 @@ async def router_node(state: AgentState):
                 break
 
     agent_descriptions = {
-        "mindmap": "Best for hierarchical structures, brainstorming, outlining ideas, and organizing concepts. Output: Markdown/Markmap.",
-        "flow": "Best for standard Flowcharts ONLY. Output: React Flow JSON.",
-        "mermaid": "Best for Sequence Diagrams, Class Diagrams, State Diagrams, Gantt Charts, Git Graphs, Entity Relationship Diagrams (ERD), and User Journeys. Use this if user explicitly asks for 'Mermaid'. Output: Mermaid Syntax.",
-        "charts": "Best for quantitative data visualization (sales, stats, trends). Output: ECharts (Bar, Line, Pie, etc.).",
-        "drawio": "Best for professional, heavy-duty architecture diagrams, cloud infrastructure, and detailed UML. Use this ONLY if user explicitly asks for 'Draw.io' or complex 'architecture'.",
-        "infographic": "Best for infographics, data posters, visual storytelling, process visualization, comparison charts, timelines, and creative data presentation. Use this if user asks for 'information graphics', 'data poster', 'visual summary', or '信息图'.",
-        "general": "Handles greetings, questions unrelated to diagramming, or requests that don't fit other categories."
+        "mindmap": "最适合层次结构、头脑风暴、概述想法和组织概念。输出：Markdown/Markmap。",
+        "flow": "仅最适合标准流程图。输出：React Flow JSON。",
+        "mermaid": "最适合序列图、类图、状态图、甘特图、Git 图、实体关系图 (ERD) 和用户旅程。如果用户明确要求'Mermaid'，使用此项。输出：Mermaid 语法。",
+        "charts": "最适合定量数据可视化（销售、统计、趋势）。输出：ECharts（条形图、线图、饼图等）。",
+        "drawio": "最适合专业、重型架构图、云基础设施和详细 UML。仅当用户明确要求'Draw.io'或复杂'架构'时使用。",
+        "infographic": "最适合信息图、数据海报、视觉叙事、流程可视化、比较图表、时间线和创意数据展示。如果用户要求'信息图'、'数据海报'、'视觉摘要'或'信息图'，使用此项。",
+        "general": "处理问候、与绘图无关的问题，或不适合其他类别的请求。"
     }
     
     # Identify Full Agent Execution History
@@ -85,28 +85,28 @@ async def router_node(state: AgentState):
 
     descriptions_text = "\n".join([f"- '{key}': {desc}" for key, desc in agent_descriptions.items()])
 
-    system_prompt = f"""You are an intelligent DeepDiagram Router.
-    Your goal is to analyze the user's intent and route to the most appropriate diagram agent.
+    system_prompt = f"""你是一个智能的 DeepDiagram 路由器。
+    你的目标是分析用户的意图并路由到最合适的图表代理。
     
-    AGENT EXECUTION HISTORY (Agents + Tools): 
+    代理执行历史（代理 + 工具）： 
     {execution_history_text}
     
-    LAST ACTIVE AGENT: {last_active_agent}
+    上次活跃代理：{last_active_agent}
     
-    (If the user's request is a follow-up, refinement, or "fix" for the previous result, FAVOUR the {last_active_agent} unless they explicitly ask for a different tool or the topic has fundamentally shifted)
+    （如果用户的请求是后续、完善或"修复"之前的結果，除非他们明确要求不同的工具或主题根本改变，否则倾向于 {last_active_agent}）
 
-    Context Awareness Rules:
-    1. IF "CURRENT VISUAL CONTEXT" is "Chart" AND user asks to "add", "remove", "change", "update" numbers or items -> YOU MUST ROUTE TO 'charts'.
-    2. IF "CURRENT VISUAL CONTEXT" is "Mindmap" AND user asks to "add node", "expand" -> YOU MUST ROUTE TO 'mindmap'.
-    3. IF "CURRENT VISUAL CONTEXT" is "Flowchart" AND user asks to "change shape", "connect" -> YOU MUST ROUTE TO 'flow'.
-    4. IF "CURRENT VISUAL CONTEXT" is "Mermaid Diagram" AND user asks to "add participant", "change flow" -> YOU MUST ROUTE TO 'mermaid'.
-    5. IF "CURRENT VISUAL CONTEXT" is "Draw.io Architecture" AND user asks to "add cloud component", "change layout" -> YOU MUST ROUTE TO 'drawio'.
-    6. IF user mentions "Mermaid" OR asks for "Sequence Diagram", "Class Diagram", "Gantt" -> YOU MUST ROUTE TO 'mermaid'.
+    上下文感知规则：
+    1. 如果"当前视觉上下文"是"图表"且用户要求"添加"、"删除"、"更改"、"更新"数字或项目 -> 你必须路由到 'charts'。
+    2. 如果"当前视觉上下文"是"思维导图"且用户要求"添加节点"、"扩展" -> 你必须路由到 'mindmap'。
+    3. 如果"当前视觉上下文"是"流程图"且用户要求"更改形状"、"连接" -> 你必须路由到 'flow'。
+    4. 如果"当前视觉上下文"是"Mermaid 图表"且用户要求"添加参与者"、"更改流程" -> 你必须路由到 'mermaid'。
+    5. 如果"当前视觉上下文"是"Draw.io 架构"且用户要求"添加云组件"、"更改布局" -> 你必须路由到 'drawio'。
+    6. 如果用户提到"Mermaid"或要求"序列图"、"类图"、"甘特图" -> 你必须路由到 'mermaid'。
     
-    Agent Capabilities:
+    代理能力：
     {descriptions_text}
     
-    Output ONLY keywords: 'mindmap', 'flow', 'mermaid', 'charts', 'drawio', 'general'.
+    只输出关键词：'mindmap', 'flow', 'mermaid', 'charts', 'drawio', 'general'。
     """
     
     # Helper to safely summarize PREVIOUS message content for history (concise text only)
