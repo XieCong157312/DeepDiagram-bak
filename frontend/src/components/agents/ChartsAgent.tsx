@@ -88,6 +88,32 @@ export const ChartsAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) =
 
             if (!options) throw new Error("Could not parse chart configuration");
 
+            // Remove rigid sizing so the chart can adapt to the container
+            if (options && typeof options === 'object') {
+                delete options.width;
+                delete options.height;
+
+                if (!options.grid || typeof options.grid !== 'object') {
+                    options.grid = { left: '5%', right: '5%', top: '15%', bottom: '10%', containLabel: true };
+                } else {
+                    if (options.grid.left == null) options.grid.left = '5%';
+                    if (options.grid.right == null) options.grid.right = '5%';
+                    if (options.grid.top == null) options.grid.top = '15%';
+                    if (options.grid.bottom == null) options.grid.bottom = '10%';
+                    options.grid.containLabel = true;
+                }
+
+                if (!options.tooltip) {
+                    options.tooltip = { trigger: 'axis', confine: true };
+                } else if (typeof options.tooltip === 'object') {
+                    options.tooltip.confine = true;
+                }
+
+                if (!options.backgroundColor) {
+                    options.backgroundColor = 'transparent';
+                }
+            }
+
             // Handle nested structure: {"design_concept": "...", "code": "..."}
             if (options.code && !options.series && !options.xAxis && !options.yAxis) {
                 if (typeof options.code === 'string') {
