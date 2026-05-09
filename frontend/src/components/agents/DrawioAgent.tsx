@@ -127,6 +127,10 @@ export const DrawioAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) =
         return xml;
     };
 
+    const escapeXmlEntities = (xml: string) => {
+        return xml.replace(/&(?!(?:amp|lt|gt|quot|apos|#[0-9]+|#x[0-9A-Fa-f]+);)/g, '&amp;');
+    };
+
     useEffect(() => {
         if (!isStreamingCode && iframeReady && currentCode && drawioIframeRef.current) {
             let cleanXml = extractDrawioXml(currentCode);
@@ -146,6 +150,9 @@ export const DrawioAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) =
             if (cleanXml.startsWith('<')) {
                 // Sanitize XML to remove invalid <Array> elements that cause parsing errors
                 cleanXml = sanitizeDrawioXml(cleanXml);
+
+                // Escape raw ampersands in XML content to prevent parser failures
+                cleanXml = escapeXmlEntities(cleanXml);
 
                 const win = drawioIframeRef.current.contentWindow;
                 win?.postMessage(JSON.stringify({
