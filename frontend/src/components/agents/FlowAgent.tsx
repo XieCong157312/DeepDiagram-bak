@@ -104,7 +104,7 @@ const ProcessNode = (props: any) => (
         icon={Box}
         colorClass="text-blue-600"
         accentColor="bg-blue-600"
-        className="rounded-2xl min-w-[200px] max-w-[280px]"
+        className="rounded-2xl min-w-[220px] max-w-[320px]"
     >
         <Handle type="target" position={Position.Top} className="!w-2 !h-2 !bg-blue-600 !border-2 !border-white" />
         <Handle type="source" position={Position.Bottom} className="!w-2 !h-2 !bg-blue-600 !border-2 !border-white" />
@@ -173,25 +173,25 @@ const DecisionNode = (props: any) => {
     };
 
     return (
-        <div className="relative w-44 h-44 flex items-center justify-center pointer-events-auto" onDoubleClick={() => setEditing(true)}>
+        <div className="relative min-w-[220px] min-h-[220px] flex items-center justify-center pointer-events-auto" onDoubleClick={() => setEditing(true)}>
             {/* SVG Diamond for precision */}
             <svg width="100%" height="100%" viewBox="0 0 100 100" className="absolute inset-0 drop-shadow-2xl">
                 <polygon points="50,4 96,50 50,96 4,50" fill="white" stroke="#f59e0b" strokeWidth="2.5" />
             </svg>
 
-            <div className="relative z-10 text-center px-8 w-full flex flex-col items-center">
+            <div className="relative z-10 text-center px-4 w-full flex flex-col items-center">
                 <HelpCircle className="w-6 h-6 mb-2 text-amber-500 opacity-60" />
                 {editing ? (
                     <textarea
                         autoFocus
-                        rows={2}
+                        rows={3}
                         className="w-full text-center outline-none bg-transparent text-xs font-black text-slate-900 resize-none leading-tight"
                         value={value}
                         onChange={(e) => setValue(e.target.value)}
                         onBlur={onBlur}
                     />
                 ) : (
-                    <div className="text-xs font-black text-slate-900 leading-snug whitespace-pre-wrap break-words select-none px-2 uppercase tracking-tight">
+                    <div className="text-xs font-black text-slate-900 leading-snug whitespace-pre-line break-words select-none px-2 tracking-tight">
                         {data.label}
                     </div>
                 )}
@@ -225,6 +225,18 @@ export const FlowAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) => 
     const [error, setError] = useState<string | null>(null);
     const isInternalUpdate = useRef(false);
     const { getNodes, fitView } = useReactFlow();
+
+    useEffect(() => {
+        if (nodes.length === 0) return;
+        const timer = window.setTimeout(() => {
+            try {
+                fitView({ padding: 0.2, duration: 300 });
+            } catch (e) {
+                console.warn('FlowAgent fitView failed:', e);
+            }
+        }, 50);
+        return () => window.clearTimeout(timer);
+    }, [nodes, fitView]);
 
     const onConnect = (params: Connection) => setEdges((eds) => addEdge(params, eds));
 
@@ -375,31 +387,79 @@ export const FlowAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) => 
 
                 if (data.nodes && Array.isArray(data.nodes)) {
                     setError(null);
-                    // V4 STRUCTURAL FIX: Sanitize and Fix AI garbage
-                    const processedNodes = data.nodes.map((n: any) => {
-                        // 1. Force valid types
+
+                    const normalizeNumber = (value: any) => {
+                        const num = Number(value);
+                        return Number.isFinite(num) ? num : 0;
+                    };
+
+                    const normalizePosition = (pos: any) => ({
+                        x: normalizeNumber(pos?.x),
+                        y: normalizeNumber(pos?.y)
+                    });
+
+                    const sanitizeNode = (n: any) => {
                         let type = n.type || 'process';
                         if (!nodeTypes[type as keyof typeof nodeTypes]) {
                             type = 'process';
                         }
 
-                        // 2. STRIP AI-INJECTED STYLING & ROTATION
-                        const { style, className, ...rest } = n;
+                        const { style, className, position, ...rest } = n;
+                        const normalizedPosition = normalizePosition(position || n?.data?.position || {});
 
                         return {
                             ...rest,
                             type,
+                            position: normalizedPosition,
                             data: {
                                 ...n.data,
                                 onChange: handleNodeLabelChange
                             },
-                            // 3. Reset any transform from style object
                             style: {}
                         };
-                    });
+                    };
 
-                    setNodes(processedNodes);
-                    setEdges(data.edges || []);
+                    const sanitizeEdge = (edge: any, index: number) => {
+                        const source = String(edge.source || edge.from || '');
+                        const target = String(edge.target || edge.to || '');
+                        const id = String(edge.id || edge.source && edge.target ? `e-${source}-${target}-${index}` : `e-${index}`);
+
+                        return {
+                            id,
+                            source,
+                            target,
+                            animated: edge.animated ?? true,
+                            style: { strokeWidth: 2, stroke: '#94a3b8' },
+                            markerEnd: {
+                                type: MarkerType.ArrowClosed,
+                                width: 20,
+                                height: 20,
+                                color: '#94a3b8',
+                            },
+                            ...edge
+                        };
+                    };
+
+                    const processedNodes = data.nodes.map(sanitizeNode);
+                    const nodeIds = new Set(processedNodes.map((node: any) => String(node.id)));
+                    const processedEdges = Array.isArray(data.edges) ? data.edges
+                        .map(sanitizeEdge)
+                        .filter((edge: any) => nodeIds.has(edge.source) && nodeIds.has(edge.target))
+                        : [];
+
+                    // Shift all nodes into positive coordinate space and keep relative layout
+                    const minX = Math.min(...processedNodes.map((node: any) => node.position?.x ?? 0));
+                    const minY = Math.min(...processedNodes.map((node: any) => node.position?.y ?? 0));
+                    const shiftedNodes = processedNodes.map((node: any) => ({
+                        ...node,
+                        position: {
+                            x: node.position.x - Math.min(minX, 20),
+                            y: node.position.y - Math.min(minY, 20)
+                        }
+                    }));
+
+                    setNodes(shiftedNodes);
+                    setEdges(processedEdges);
                     useChatStore.getState().reportSuccess();
                 }
             } catch (e) {

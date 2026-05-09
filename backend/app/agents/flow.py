@@ -59,17 +59,17 @@ FLOW_SYSTEM_PROMPT = """你是一位高级业务流程架构师和工作流优�
 <code>
 {
   "nodes": [
-    { "id": "1", "type": "start", "position": { "x": 400, "y": 0 }, "data": { "label": "Start" } },
-    { "id": "2", "type": "process", "position": { "x": 400, "y": 150 }, "data": { "label": "Process Data" } },
-    { "id": "3", "type": "decision", "position": { "x": 400, "y": 300 }, "data": { "label": "Is Valid?" } },
-    { "id": "4", "type": "process", "position": { "x": 200, "y": 450 }, "data": { "label": "Handle Error" } },
-    { "id": "5", "type": "end", "position": { "x": 600, "y": 450 }, "data": { "label": "Complete" } }
+    { "id": "1", "type": "start", "position": { "x": 400, "y": 0 }, "data": { "label": "开始" } },
+    { "id": "2", "type": "process", "position": { "x": 400, "y": 150 }, "data": { "label": "处理数据" } },
+    { "id": "3", "type": "decision", "position": { "x": 400, "y": 300 }, "data": { "label": "是否有效？" } },
+    { "id": "4", "type": "process", "position": { "x": 200, "y": 450 }, "data": { "label": "处理错误" } },
+    { "id": "5", "type": "end", "position": { "x": 600, "y": 450 }, "data": { "label": "完成" } }
   ],
   "edges": [
     { "id": "e1-2", "source": "1", "target": "2" },
     { "id": "e2-3", "source": "2", "target": "3" },
-    { "id": "e3-4", "source": "3", "target": "4", "label": "No" },
-    { "id": "e3-5", "source": "3", "target": "5", "label": "Yes" }
+    { "id": "e3-4", "source": "3", "target": "4", "label": "否" },
+    { "id": "e3-5", "source": "3", "target": "5", "label": "是" }
   ]
 }
 </code>
