@@ -261,7 +261,20 @@ export const MindmapAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) 
     }, [isStreamingCode, currentCode]);
 
     return (
-        <div className="w-full h-full relative bg-white">
+        <div className="w-full h-full relative bg-slate-950 text-slate-100 overflow-hidden">
+            <style>{`
+                .mindmap-dark { background: radial-gradient(circle at top left, rgba(96,165,250,0.12), transparent 36%), radial-gradient(circle at bottom right, rgba(139,92,246,0.14), transparent 32%), #0f172a; }
+                .mindmap-dark .map-container { background: transparent !important; }
+                .mindmap-dark .topic { background: rgba(15,23,42,0.78); border: 1px solid rgba(148,163,184,0.25); box-shadow: 0 16px 40px rgba(15,23,42,0.35); color: #e2e8f0; }
+                .mindmap-dark .topic .topic-content { color: #f8fafc; font-weight: 600; }
+                .mindmap-dark .topic-root { border-color: rgba(59,130,246,0.85); background: linear-gradient(135deg, rgba(59,130,246,0.16), rgba(99,102,241,0.28)); }
+                .mindmap-dark .topic-root .topic-content { color: #eff6ff; }
+                .mindmap-dark .topic-children .topic { background: rgba(15,23,42,0.72); }
+                .mindmap-dark .link { stroke: rgba(148,163,184,0.55) !important; }
+                .mindmap-dark .fold-btn { background: rgba(148,163,184,0.12); border: 1px solid rgba(148,163,184,0.25); }
+                .mindmap-dark .topic .topic-children { background: transparent; }
+                .mindmap-dark .topic .topic-content { padding: 12px 16px; border-radius: 16px; }
+            `}</style>
             {error ? (
                 <div className="flex flex-col items-center justify-center h-full p-4 text-center">
                     <div className="p-3 bg-red-50 rounded-full mb-3">
@@ -279,7 +292,7 @@ export const MindmapAgent = forwardRef<AgentRef, AgentProps>(({ content }, ref) 
                     </button>
                 </div>
             ) : (
-                <div ref={mindmapRef} className="w-full h-full" />
+                <div ref={mindmapRef} className="w-full h-full mindmap-dark" />
             )}
         </div>
     );
